@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -195,11 +195,13 @@ CREATE TABLE `staff` (
   `hostel_id` int NOT NULL,
   `emp_designation` varchar(40) NOT NULL,
   `mess_incharge_Id` varchar(20) DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`emp_id`),
   KEY `hostel_id` (`hostel_id`),
   KEY `mess_incharge_Id` (`mess_incharge_Id`),
   CONSTRAINT `staff_ibfk_1` FOREIGN KEY (`hostel_id`) REFERENCES `boys_hostel` (`hostel_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`mess_incharge_Id`) REFERENCES `mess` (`mess_incharge_Id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `staff_ibfk_2` FOREIGN KEY (`mess_incharge_Id`) REFERENCES `mess` (`mess_incharge_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `staff_chk_1` CHECK ((`gender` in (_utf8mb4'Female',_utf8mb4'Male')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -230,11 +232,13 @@ CREATE TABLE `student` (
   `student_DOB` date NOT NULL,
   `hostel_id` int NOT NULL,
   `room_id` int NOT NULL,
+  `gender` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`student_id`),
   KEY `hostel_id` (`hostel_id`),
   KEY `room_id` (`room_id`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`hostel_id`) REFERENCES `hostel` (`hostel_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `student_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_chk_1` CHECK ((`gender` in (_utf8mb4'Female',_utf8mb4'Male')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,6 +250,10 @@ LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'hms'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -256,4 +264,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-21 11:04:44
+-- Dump completed on 2020-07-24 11:40:20
